@@ -1,0 +1,11 @@
+controller_joint_names:
+  [
+    "shoulder_lateral",
+    "sholder_vertical",
+    "elbow",
+    "lower_arm_yaw",
+    "lower_arm_vertical",
+    "gripper_yaw",
+    "left_finger_joint",
+    "right_finger_joint",
+  ]
