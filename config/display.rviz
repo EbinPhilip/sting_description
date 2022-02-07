@@ -62,6 +62,10 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
+        base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         gripper:
           Alpha: 1
           Show Axes: false
@@ -97,7 +101,7 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        sting_base_link:
+        sting_base:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -117,7 +121,7 @@ Visualization Manager:
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: sting_base
+    Fixed Frame: base_link
     Frame Rate: 30
   Name: root
   Tools:
