@@ -1,7 +1,7 @@
 <launch>
   <param
     name="robot_description"
-    command="$(find xacro)/xacro '$(find sting_description)/urdf/sting.xacro'" />
+    command="$(find xacro)/xacro '$(find sting_description)/urdf/sting_standalone.xacro'" />
   <node
     name="joint_state_publisher_gui"
     pkg="joint_state_publisher_gui"
