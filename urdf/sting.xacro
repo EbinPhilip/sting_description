@@ -1,512 +1,534 @@
 <robot
-  name="sting"
   xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <link
-    name="sting_base">
-    <inertial>
-      <origin
-        xyz="-0.0306847245973906 0.00297469188423153 0.0179502559896504"
-        rpy="0 0 0" />
-      <mass
-        value="0.208424947541378" />
-      <inertia
-        ixx="0.000170859916484587"
-        ixy="7.66647075115288E-06"
-        ixz="-1.87765482676613E-05"
-        iyy="0.000257551852637342"
-        iyz="2.79158713422585E-07"
-        izz="0.000322531498669573" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://sting_description/meshes/base_link.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://sting_description/meshes/base_link_collision.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <link
-    name="shoulder">
-    <inertial>
-      <origin
-        xyz="-2.83701451220253E-10 0.000650440813576972 0.0296441737600373"
-        rpy="0 0 0" />
-      <mass
-        value="0.0886507468374865" />
-      <inertia
-        ixx="4.39599938957944E-05"
-        ixy="-4.10056983368094E-13"
-        ixz="-2.26716263020998E-14"
-        iyy="3.64657646135674E-05"
-        iyz="-2.49947341733224E-07"
-        izz="2.31909272995461E-05" />
-    </inertial>
-    <visual>
+  <xacro:macro name="sting" params="base_link">
+    <link
+      name="sting_base">
+      <inertial>
+        <origin
+          xyz="-0.0306847245973906 0.00297469188423153 0.0179502559896504"
+          rpy="0 0 0" />
+        <mass
+          value="0.208424947541378" />
+        <inertia
+          ixx="0.000170859916484587"
+          ixy="7.66647075115288E-06"
+          ixz="-1.87765482676613E-05"
+          iyy="0.000257551852637342"
+          iyz="2.79158713422585E-07"
+          izz="0.000322531498669573" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://sting_description/meshes/base_link.STL" />
+        </geometry>
+        <material
+          name="">
+          <color
+            rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://sting_description/meshes/base_link_collision.STL" />
+        </geometry>
+      </collision>
+    </link>
+    <joint name="sting_base_joint"
+      type="fixed">
       <origin
         xyz="0 0 0"
         rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://sting_description/meshes/shoulder.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
-      </material>
-    </visual>
-    <collision>
+      <parent
+        link="${base_link}" />
+      <child
+        link="sting_base" />
+    </joint>
+    <link
+      name="shoulder">
+      <inertial>
+        <origin
+          xyz="-2.83701451220253E-10 0.000650440813576972 0.0296441737600373"
+          rpy="0 0 0" />
+        <mass
+          value="0.0886507468374865" />
+        <inertia
+          ixx="4.39599938957944E-05"
+          ixy="-4.10056983368094E-13"
+          ixz="-2.26716263020998E-14"
+          iyy="3.64657646135674E-05"
+          iyz="-2.49947341733224E-07"
+          izz="2.31909272995461E-05" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://sting_description/meshes/shoulder.STL" />
+        </geometry>
+        <material
+          name="">
+          <color
+            rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://sting_description/meshes/shoulder_collision.STL" />
+        </geometry>
+      </collision>
+    </link>
+    <joint
+      name="shoulder_lateral"
+      type="revolute">
+      <origin
+        xyz="0 0 0.0586"
+        rpy="0 0 5.5511E-17" />
+      <parent
+        link="sting_base" />
+      <child
+        link="shoulder" />
+      <axis
+        xyz="0 0 1" />
+      <limit
+        lower="-2.0944"
+        upper="2.0944"
+        effort="1.5"
+        velocity="0.2" />
+    </joint>
+    <link
+      name="upper_arm">
+      <inertial>
+        <origin
+          xyz="0.0059374683190056 0.00025826476222137 0.116477208759359"
+          rpy="0 0 0" />
+        <mass
+          value="0.0964875205570864" />
+        <inertia
+          ixx="0.000293392741763401"
+          ixy="-1.65504722836251E-07"
+          ixz="-2.68030403800667E-05"
+          iyy="0.000296714836558997"
+          iyz="-1.19420368429977E-06"
+          izz="2.64654966840106E-05" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://sting_description/meshes/upper_arm.STL" />
+        </geometry>
+        <material
+          name="">
+          <color
+            rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://sting_description/meshes/upper_arm_collision.STL" />
+        </geometry>
+      </collision>
+    </link>
+    <joint
+      name="sholder_vertical"
+      type="revolute">
+      <origin
+        xyz="0 0 0.0462"
+        rpy="0 0 -5.5511E-17" />
+      <parent
+        link="shoulder" />
+      <child
+        link="upper_arm" />
+      <axis
+        xyz="0 1 0" />
+      <limit
+        lower="-1.5708"
+        upper="1.5708"
+        effort="1.5"
+        velocity="0.2" />
+    </joint>
+    <link
+      name="lower_arm_back">
+      <inertial>
+        <origin
+          xyz="0.0434959254307221 -1.14636806471113E-09 0.0114920313938176"
+          rpy="0 0 0" />
+        <mass
+          value="0.0483834887231438" />
+        <inertia
+          ixx="1.2677814519069E-05"
+          ixy="-4.44863666688638E-12"
+          ixz="-2.71995442627541E-07"
+          iyy="1.54367273768713E-05"
+          iyz="4.54047154489777E-13"
+          izz="1.06356238691095E-05" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://sting_description/meshes/lower_arm_back.STL" />
+        </geometry>
+        <material
+          name="">
+          <color
+            rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://sting_description/meshes/lower_arm_back_collision.STL" />
+        </geometry>
+      </collision>
+    </link>
+    <joint
+      name="elbow"
+      type="revolute">
+      <origin
+        xyz="0.024 0 0.1644"
+        rpy="4.4738E-30 1.0077E-14 3.4001E-16" />
+      <parent
+        link="upper_arm" />
+      <child
+        link="lower_arm_back" />
+      <axis
+        xyz="0 1 0" />
+      <limit
+        lower="-1.5708"
+        upper="1.5708"
+        effort="1.5"
+        velocity="0.2" />
+    </joint>
+    <link
+      name="lower_arm_middle">
+      <inertial>
+        <origin
+          xyz="0.214841381906226 0.000357131119188845 0.0845979817439144"
+          rpy="0 0 0" />
+        <mass
+          value="0.0697643525972458" />
+        <inertia
+          ixx="1.21947606720726E-05"
+          ixy="-5.2751996332917E-07"
+          ixz="3.60127078450824E-08"
+          iyy="6.94122378614307E-05"
+          iyz="5.39987996519929E-10"
+          izz="7.13194771252659E-05" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://sting_description/meshes/lower_arm_middle.STL" />
+        </geometry>
+        <material
+          name="">
+          <color
+            rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://sting_description/meshes/lower_arm_middle_collision.STL" />
+        </geometry>
+      </collision>
+    </link>
+    <joint
+      name="lower_arm_yaw"
+      type="revolute">
+      <origin
+        xyz="0.062 0 0"
+        rpy="-5.86153888555981E-30 -2.50569359413717E-14 1.41610079671577E-16" />
+      />
+      <parent
+        link="lower_arm_back" />
+      <child
+        link="lower_arm_middle" />
+      <axis
+        xyz="1 0 0" />
+      <limit
+        lower="-3.14159"
+        upper="3.14159"
+        effort="1.5"
+        velocity="0.2" />
+    </joint>
+    <link
+      name="lower_arm_front">
+      <inertial>
+        <origin
+          xyz="0.0434959254307224 -1.14636688162972E-09 0.0114920313938176"
+          rpy="0 0 0" />
+        <mass
+          value="0.0483834887231438" />
+        <inertia
+          ixx="1.2677814519069E-05"
+          ixy="-4.44863665996012E-12"
+          ixz="-2.71995442627538E-07"
+          iyy="1.54367273768713E-05"
+          iyz="4.54047171613963E-13"
+          izz="1.06356238691095E-05" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://sting_description/meshes/lower_arm_front.STL" />
+        </geometry>
+        <material
+          name="">
+          <color
+            rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://sting_description/meshes/lower_arm_front_collision.STL" />
+        </geometry>
+      </collision>
+    </link>
+    <joint
+      name="lower_arm_vertical"
+      type="revolute">
+      <origin
+        xyz="0.0875000000000006 0 0"
+        rpy="-2.31296463463572E-15 2.26630175445237E-14 1.94005809150057E-15" />
+      <parent
+        link="lower_arm_middle" />
+      <child
+        link="lower_arm_front" />
+      <axis
+        xyz="0 1 0" />
+      <limit
+        lower="-1.5708"
+        upper="1.5708"
+        effort="1.5"
+        velocity="0.2" />
+    </joint>
+    <link name = "gripper_frame"/>
+    <joint
+      name="gripper_yaw"
+      type="revolute">
+      <origin
+        xyz="0.0620000000000001 0 0"
+        rpy="2.31296463463576E-15 -2.26630175445237E-14 -1.94005809150062E-15" />
+      <parent
+        link="lower_arm_front" />
+      <child
+        link="gripper_frame" />
+      <axis
+        xyz="1 0 0" />
+      <limit
+        lower="-3.14159"
+        upper="3.14159"
+        effort="1.5"
+        velocity="0.2" />
+    </joint>
+    <link
+      name="gripper">
+      <inertial>
+        <origin
+          xyz="0.194704951724816 -2.17324802095215E-08 0.12068685472718"
+          rpy="0 0 0" />
+        <mass
+          value="0.0886007401728508" />
+        <inertia
+          ixx="3.41353282847447E-05"
+          ixy="-6.3636069010898E-11"
+          ixz="7.59006185089717E-07"
+          iyy="5.03382529039198E-05"
+          iyz="2.31748941043985E-11"
+          izz="3.8064016603647E-05" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://sting_description/meshes/gripper.STL" />
+        </geometry>
+        <material
+          name="">
+          <color
+            rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://sting_description/meshes/gripper_collision.STL" />
+        </geometry>
+      </collision>
+    </link>
+    <joint name="gripper_joint"
+      type="fixed">
       <origin
         xyz="0 0 0"
         rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://sting_description/meshes/shoulder_collision.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <joint
-    name="shoulder_lateral"
-    type="revolute">
-    <origin
-      xyz="0 0 0.0586"
-      rpy="0 0 5.5511E-17" />
-    <parent
-      link="sting_base" />
-    <child
-      link="shoulder" />
-    <axis
-      xyz="0 0 1" />
-    <limit
-      lower="-2.0944"
-      upper="2.0944"
-      effort="1.5"
-      velocity="0.2" />
-  </joint>
-  <link
-    name="upper_arm">
-    <inertial>
+      <parent
+        link="gripper_frame" />
+      <child
+        link="gripper" />
+    </joint>
+    <link
+      name="left_finger">
+      <inertial>
+        <origin
+          xyz="0.0208098801732191 0.0499696696707152 0.0100306977135814"
+          rpy="0 0 0" />
+        <mass
+          value="0.0335122683871604" />
+        <inertia
+          ixx="3.47056370294739E-05"
+          ixy="-9.08295917628388E-06"
+          ixz="6.80086286395204E-06"
+          iyy="3.1260293364006E-05"
+          iyz="7.57592794813548E-06"
+          izz="5.35698354765624E-05" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://sting_description/meshes/left_finger.STL" />
+        </geometry>
+        <material
+          name="">
+          <color
+            rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://sting_description/meshes/left_finger_collision.STL" />
+        </geometry>
+      </collision>
+    </link>
+    <joint
+      name="left_finger_joint"
+      type="prismatic">
       <origin
-        xyz="0.0059374683190056 0.00025826476222137 0.116477208759359"
-        rpy="0 0 0" />
-      <mass
-        value="0.0964875205570864" />
-      <inertia
-        ixx="0.000293392741763401"
-        ixy="-1.65504722836251E-07"
-        ixz="-2.68030403800667E-05"
-        iyy="0.000296714836558997"
-        iyz="-1.19420368429977E-06"
-        izz="2.64654966840106E-05" />
-    </inertial>
-    <visual>
+        xyz="0.0585000000000001 0 0"
+        rpy="-4.78783679369601E-16 1.52572064754592E-14 -1.41610079671578E-16" />
+      <parent
+        link="gripper" />
+      <child
+        link="left_finger" />
+      <axis
+        xyz="0 -1 0" />
+      <limit
+        lower="0"
+        upper="0.06"
+        effort="1"
+        velocity="0.2" />
+    </joint>
+    <link
+      name="right_finger">
+      <inertial>
+        <origin
+          xyz="0.02081 -0.04997 -0.010231"
+          rpy="0 0 0" />
+        <mass
+          value="0.033512" />
+        <inertia
+          ixx="3.4706E-05"
+          ixy="9.083E-06"
+          ixz="-6.8009E-06"
+          iyy="3.126E-05"
+          iyz="7.5759E-06"
+          izz="5.357E-05" />
+      </inertial>
+      <visual>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://sting_description/meshes/right_finger.STL" />
+        </geometry>
+        <material
+          name="">
+          <color
+            rgba="0.79216 0.81961 0.93333 1" />
+        </material>
+      </visual>
+      <collision>
+        <origin
+          xyz="0 0 0"
+          rpy="0 0 0" />
+        <geometry>
+          <mesh
+            filename="package://sting_description/meshes/right_finger_collision.STL" />
+        </geometry>
+      </collision>
+    </link>
+    <joint
+      name="right_finger_joint"
+      type="prismatic">
       <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://sting_description/meshes/upper_arm.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://sting_description/meshes/upper_arm_collision.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <joint
-    name="sholder_vertical"
-    type="revolute">
-    <origin
-      xyz="0 0 0.0462"
-      rpy="0 0 -5.5511E-17" />
-    <parent
-      link="shoulder" />
-    <child
-      link="upper_arm" />
-    <axis
-      xyz="0 1 0" />
-    <limit
-      lower="-1.5708"
-      upper="1.5708"
-      effort="1.5"
-      velocity="0.2" />
-  </joint>
-  <link
-    name="lower_arm_back">
-    <inertial>
-      <origin
-        xyz="0.0434959254307221 -1.14636806471113E-09 0.0114920313938176"
-        rpy="0 0 0" />
-      <mass
-        value="0.0483834887231438" />
-      <inertia
-        ixx="1.2677814519069E-05"
-        ixy="-4.44863666688638E-12"
-        ixz="-2.71995442627541E-07"
-        iyy="1.54367273768713E-05"
-        iyz="4.54047154489777E-13"
-        izz="1.06356238691095E-05" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://sting_description/meshes/lower_arm_back.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://sting_description/meshes/lower_arm_back_collision.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <joint
-    name="elbow"
-    type="revolute">
-    <origin
-      xyz="0.024 0 0.1644"
-      rpy="4.4738E-30 1.0077E-14 3.4001E-16" />
-    <parent
-      link="upper_arm" />
-    <child
-      link="lower_arm_back" />
-    <axis
-      xyz="0 1 0" />
-    <limit
-      lower="-1.5708"
-      upper="1.5708"
-      effort="1.5"
-      velocity="0.2" />
-  </joint>
-  <link
-    name="lower_arm_middle">
-    <inertial>
-      <origin
-        xyz="0.214841381906226 0.000357131119188845 0.0845979817439144"
-        rpy="0 0 0" />
-      <mass
-        value="0.0697643525972458" />
-      <inertia
-        ixx="1.21947606720726E-05"
-        ixy="-5.2751996332917E-07"
-        ixz="3.60127078450824E-08"
-        iyy="6.94122378614307E-05"
-        iyz="5.39987996519929E-10"
-        izz="7.13194771252659E-05" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://sting_description/meshes/lower_arm_middle.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://sting_description/meshes/lower_arm_middle_collision.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <joint
-    name="lower_arm_yaw"
-    type="revolute">
-    <origin
-      xyz="0.062 0 0"
-      rpy="-5.86153888555981E-30 -2.50569359413717E-14 1.41610079671577E-16" />
-    />
-    <parent
-      link="lower_arm_back" />
-    <child
-      link="lower_arm_middle" />
-    <axis
-      xyz="1 0 0" />
-    <limit
-      lower="-3.14159"
-      upper="3.14159"
-      effort="1.5"
-      velocity="0.2" />
-  </joint>
-  <link
-    name="lower_arm_front">
-    <inertial>
-      <origin
-        xyz="0.0434959254307224 -1.14636688162972E-09 0.0114920313938176"
-        rpy="0 0 0" />
-      <mass
-        value="0.0483834887231438" />
-      <inertia
-        ixx="1.2677814519069E-05"
-        ixy="-4.44863665996012E-12"
-        ixz="-2.71995442627538E-07"
-        iyy="1.54367273768713E-05"
-        iyz="4.54047171613963E-13"
-        izz="1.06356238691095E-05" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://sting_description/meshes/lower_arm_front.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://sting_description/meshes/lower_arm_front_collision.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <joint
-    name="lower_arm_vertical"
-    type="revolute">
-    <origin
-      xyz="0.0875000000000006 0 0"
-      rpy="-2.31296463463572E-15 2.26630175445237E-14 1.94005809150057E-15" />
-    <parent
-      link="lower_arm_middle" />
-    <child
-      link="lower_arm_front" />
-    <axis
-      xyz="0 1 0" />
-    <limit
-      lower="-1.5708"
-      upper="1.5708"
-      effort="1.5"
-      velocity="0.2" />
-  </joint>
-  <link
-    name="gripper">
-    <inertial>
-      <origin
-        xyz="0.194704951724816 -2.17324802095215E-08 0.12068685472718"
-        rpy="0 0 0" />
-      <mass
-        value="0.0886007401728508" />
-      <inertia
-        ixx="3.41353282847447E-05"
-        ixy="-6.3636069010898E-11"
-        ixz="7.59006185089717E-07"
-        iyy="5.03382529039198E-05"
-        iyz="2.31748941043985E-11"
-        izz="3.8064016603647E-05" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://sting_description/meshes/gripper.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://sting_description/meshes/gripper_collision.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <joint
-    name="gripper_yaw"
-    type="revolute">
-    <origin
-      xyz="0.0620000000000001 0 0"
-      rpy="2.31296463463576E-15 -2.26630175445237E-14 -1.94005809150062E-15" />
-    <parent
-      link="lower_arm_front" />
-    <child
-      link="gripper" />
-    <axis
-      xyz="1 0 0" />
-    <limit
-      lower="-3.14159"
-      upper="3.14159"
-      effort="1.5"
-      velocity="0.2" />
-  </joint>
-  <link
-    name="left_finger">
-    <inertial>
-      <origin
-        xyz="0.0208098801732191 0.0499696696707152 0.0100306977135814"
-        rpy="0 0 0" />
-      <mass
-        value="0.0335122683871604" />
-      <inertia
-        ixx="3.47056370294739E-05"
-        ixy="-9.08295917628388E-06"
-        ixz="6.80086286395204E-06"
-        iyy="3.1260293364006E-05"
-        iyz="7.57592794813548E-06"
-        izz="5.35698354765624E-05" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://sting_description/meshes/left_finger.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://sting_description/meshes/left_finger_collision.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <joint
-    name="left_finger_joint"
-    type="prismatic">
-    <origin
-      xyz="0.0585000000000001 0 0"
-      rpy="-4.78783679369601E-16 1.52572064754592E-14 -1.41610079671578E-16" />
-    <parent
-      link="gripper" />
-    <child
-      link="left_finger" />
-    <axis
-      xyz="0 -1 0" />
-    <limit
-      lower="0"
-      upper="0.06"
-      effort="1"
-      velocity="0.2" />
-  </joint>
-  <link
-    name="right_finger">
-    <inertial>
-      <origin
-        xyz="0.02081 -0.04997 -0.010231"
-        rpy="0 0 0" />
-      <mass
-        value="0.033512" />
-      <inertia
-        ixx="3.4706E-05"
-        ixy="9.083E-06"
-        ixz="-6.8009E-06"
-        iyy="3.126E-05"
-        iyz="7.5759E-06"
-        izz="5.357E-05" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://sting_description/meshes/right_finger.STL" />
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="0.79216 0.81961 0.93333 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://sting_description/meshes/right_finger_collision.STL" />
-      </geometry>
-    </collision>
-  </link>
-  <joint
-    name="right_finger_joint"
-    type="prismatic">
-    <origin
-      xyz="0.0585000000000001 0 0"
-      rpy="-4.78783679369601E-16 1.52572064754592E-14 -1.41610079671578E-16" />
-    <parent
-      link="gripper" />
-    <child
-      link="right_finger" />
-    <axis
-      xyz="0 1 0" />
-    <mimic
-      joint="left_finger_joint"
-      multiplier="1" />
-    <limit
-      lower="0"
-      upper="0.06"
-      effort="1"
-      velocity="0.2" />
-  </joint>
+        xyz="0.0585000000000001 0 0"
+        rpy="-4.78783679369601E-16 1.52572064754592E-14 -1.41610079671578E-16" />
+      <parent
+        link="gripper" />
+      <child
+        link="right_finger" />
+      <axis
+        xyz="0 1 0" />
+      <mimic
+        joint="left_finger_joint"
+        multiplier="1" />
+      <limit
+        lower="0"
+        upper="0.06"
+        effort="1"
+        velocity="0.2" />
+    </joint>
+  </xacro:macro>
 </robot>
