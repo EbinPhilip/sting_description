@@ -530,5 +530,18 @@
         effort="1"
         velocity="0.2" />
     </joint>
+    <link
+      name="eef">
+    </link>
+    <joint name="eef_joint"
+      type="fixed">
+      <origin
+        xyz="0.08 0 0"
+        rpy="0 0 0" />
+      <parent
+        link="left_finger" />
+      <child
+        link="eef" />
+    </joint>
   </xacro:macro>
 </robot>
